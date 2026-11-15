@@ -1,0 +1,56 @@
+JustTools / Image Utilities - bundled libraries and model credits
+
+All runtime assets are served from this app. Upstream addresses below are
+attribution/source references, not runtime image-processing services.
+Library sources and models are unmodified. The metadata adapter is bundled
+locally as described below. Retain these notices and licenses.
+
+MediaPipe Tasks Vision 1.2.3
+Copyright Google LLC. Apache License 2.0.
+https://github.com/google-ai-edge/mediapipe
+License: mediapipe/LICENSE
+BlazeFace full-range, float16, model version 1:
+https://developers.google.com/edge/mediapipe/solutions/vision/face_detector
+Model license: models/blaze_face_full_range.tflite.LICENSE.txt
+
+U2Netp
+U-2-Net by Xuebin Qin and the U-2-Net authors. Apache License 2.0.
+https://github.com/xuebinqin/U-2-Net
+ONNX checkpoint distributed by rembg:
+https://github.com/danielgatis/rembg/releases/tag/v0.0.0
+Model license: models/u2netp.onnx.LICENSE.txt
+Preprocessing reference: rembg/sessions/base.py and rembg/sessions/u2netp.py
+MD5: 8e83ca70e441ab06c318d82300c84806
+SHA-256: 309c8469258dda742793dce0ebea8e6dd393174f89934733ecc8b14c76f4ddd8
+
+ONNX Runtime Web 1.20.1
+Copyright Microsoft Corporation. MIT License.
+https://github.com/microsoft/onnxruntime/tree/v1.20.1
+License: onnx/LICENSE
+Third-party notices: onnx/ThirdPartyNotices.txt
+
+ExifReader 4.54.0
+Copyright Mattias Wallander and contributors. Mozilla Public License 2.0.
+https://github.com/mattiasw/ExifReader
+https://cdn.jsdelivr.net/npm/exifreader@4.54.0/
+License: exifreader/LICENSE
+Unmodified source files, extracted from the published source map with the
+package's build configuration and license: exifreader/source.zip
+The source map, with original source contents, is also included beside the
+distribution file. ExifReader is a separate, unmodified library.
+
+ExifTool 13.63 / ZeroPerl metadata runtime
+ExifTool by Phil Harvey, distributed under the Artistic license option.
+Perl 5.42.0, ZeroPerl, and the WebAssembly runtime have separate licenses.
+The unmodified adapter and CLI from @colorhythm/exiftool-wasm 1.0.8 are
+bundled with runtime-entry.js; the paired WASM binary is unchanged.
+Complete credits and license/source references: exiftool/THIRD-PARTY.txt
+Adapter source: exiftool/source.zip
+Build/provenance: exiftool/BUILD.txt and exiftool/exiftool-build.json
+
+JSZip 3.10.1
+Copyright Stuart Knightley, David Duponchel, Franz Buchinger, and other authors.
+Distributed under the MIT license option.
+https://github.com/Stuk/jszip/tree/v3.10.1
+License: jszip-LICENSE.markdown
+Copied verbatim from the existing JustTools PDF Manager bundle.

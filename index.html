@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'wasm-unsafe-eval'; style-src 'self'; img-src 'self' blob: data:; connect-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'none'; form-action 'none'">
+  <meta name="description" content="Private image utilities: remove metadata, cover faces, remove backgrounds, resize, compress, convert, watermark, and download batches. No uploads.">
+  <meta name="theme-color" content="#f5f7fb">
+  <title>JustTools / Image Utilities</title>
+  <link rel="icon" href="icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css?v=2026.11.15.1">
+  <script type="module" src="app.js?v=2026.11.15.1"></script>
+</head>
+<body>
+  <main class="page">
+    <header class="brand">
+      <span class="brand-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="4"/><circle cx="8" cy="8" r="1.5"/><path d="m4 18 5-5 3 3 4-6 5 8"/></svg></span>
+      <span class="brand-name"><a class="brand-home" href="https://jlavista.github.io/just-tools/" aria-label="JustTools home">JustTools</a> / Image Utilities</span>
+      <span class="badge">BROWSER ONLY</span>
+      <p class="brand-tagline">100% free. No uploads. No accounts. Your images stay on your device.</p>
+      <p id="app-version" class="brand-tagline">v2026.11.15.1 (loading...)</p>
+    </header>
+    <section class="intro" aria-labelledby="page-title">
+      <p class="eyebrow">A LITTLE CARE FOR EVERY PICTURE</p>
+      <h1 id="page-title">Your images.<br><span>Only what you want to share.</span></h1>
+      <p>Clean up private details. Make files smaller. Get a whole batch ready, right here.</p>
+    </section>
+    <div class="workspace">
+      <aside class="sidebar" aria-label="Image selection and tools">
+        <section class="import-panel" aria-labelledby="import-title">
+          <span class="step">01 / ADD IMAGES</span><h2 id="import-title">Your images.</h2>
+          <input id="files" type="file" accept=".jpg,.jpeg,.png,.webp,.avif,.gif,.bmp,image/jpeg,image/png,image/webp,image/avif,image/gif,image/bmp" multiple hidden>
+          <button id="add-files" class="drop-zone" type="button" data-lock disabled><strong>Choose images</strong><span>or drop them here</span></button>
+          <p class="hint">One image or a batch. Originals stay unchanged.</p>
+          <details class="help-details">
+            <summary>Formats &amp; limits</summary>
+            <p class="hint">JPEG, PNG, WebP, AVIF, GIF, and BMP. Animated images use the first frame. Up to 100 images, 50 MB per file, 256 MB total, and 40 megapixels per image. HEIC, TIFF, and SVG are not supported.</p>
+          </details>
+        </section>
+        <section id="settings" class="settings" aria-labelledby="tools-title">
+          <span class="step">02 / MAKE IT YOURS</span><h2 id="tools-title">Tools</h2>
+          <p class="hint settings-hint">Open a tool to adjust it. Settings stay active when closed.</p>
+          <details class="tool" name="image-tools">
+            <summary>Resize &amp; convert</summary>
+            <div class="tool-content">
+              <label for="format">Output format</label>
+              <select id="format" data-lock><option value="keep">Keep original format</option><option value="jpeg">JPEG (.jpg)</option><option value="png">PNG (.png)</option><option value="webp">WebP (.webp)</option></select>
+              <label class="check"><input id="resize" type="checkbox" data-lock> Resize images</label>
+              <fieldset id="resize-fields" disabled hidden>
+                <legend class="sr-only">Resize bounds</legend>
+                <div class="field-grid"><div><label for="width">Max width (px)</label><input id="width" type="number" min="1" max="16384" step="1" placeholder="e.g. 1920" data-lock></div>
+                  <div><label for="height">Max height (px)</label><input id="height" type="number" min="1" max="16384" step="1" placeholder="optional" data-lock></div></div>
+                <label class="check"><input id="upscale" type="checkbox" data-lock> Allow enlarging smaller images</label>
+                <p class="hint">Aspect ratio is kept. Set one dimension or fit inside both.</p>
+              </fieldset>
+              <details class="help-details">
+                <summary>Format tips</summary>
+                <p class="hint">Keep original format preserves JPEG, PNG, and WebP; other inputs become PNG. JPEG uses a white background. PNG and WebP can keep transparency. Color rendering may differ from the original's embedded color profile.</p>
+              </details>
+            </div>
+          </details>
+          <details class="tool" name="image-tools">
+            <summary>Compress</summary>
+            <div class="tool-content">
+              <label for="quality">JPEG / WebP quality <output id="quality-value">85%</output></label>
+              <input id="quality" type="range" min="5" max="100" value="85" data-lock>
+              <label class="check"><input id="target" type="checkbox" data-lock> Compress to a target size</label>
+              <fieldset id="target-fields" disabled hidden>
+                <legend class="sr-only">Target file size</legend>
+                <div class="target-row"><div><label for="target-size">Maximum per image</label><input id="target-size" type="number" min="1" max="524288" value="200" step="1" data-lock></div>
+                  <div><label for="target-unit">Unit</label><select id="target-unit" data-lock><option value="1024">KB</option><option value="1048576">MB</option></select></div></div>
+                <label class="check"><input id="allow-shrink" type="checkbox" checked data-lock> Allow smaller dimensions if needed</label>
+              </fieldset>
+              <details class="help-details">
+                <summary>How compression works</summary>
+                <p class="hint">Lower quality usually means smaller files. PNG is lossless and ignores this slider. Re-encoding an already compressed image can make it larger; compare the result size.</p>
+                <p class="hint">The actual output bytes, including any metadata you keep, are checked against your limit (1 KB = 1,024 bytes). Quality never exceeds the slider. If the target cannot be met, the app reports an error instead of downloading an oversized file.</p>
+              </details>
+            </div>
+          </details>
+          <details class="tool" name="image-tools">
+            <summary>Background removal</summary>
+            <div class="tool-content">
+              <label class="check"><input id="background" type="checkbox" data-lock> Remove backgrounds with local AI</label>
+              <p class="hint">Use PNG or WebP for transparency. Review the edges before sharing.</p>
+              <details class="help-details">
+                <summary>About background removal</summary>
+                <p class="hint">Best for a distinct foreground subject. Fine hair, transparent objects, and busy backgrounds can need further editing.</p>
+                <p class="hint">AI engines and models load from this app on first use. No cloud service, account, or image upload is involved.</p>
+              </details>
+            </div>
+          </details>
+          <details class="tool" name="image-tools">
+            <summary>Batch watermarking</summary>
+            <div class="tool-content">
+              <label for="watermark-kind">Watermark</label><select id="watermark-kind" data-lock><option value="none">None</option><option value="text">Text</option><option value="logo">Logo image</option></select>
+              <fieldset id="watermark-fields" disabled hidden>
+                <legend class="sr-only">Watermark settings</legend>
+                <div id="watermark-text-field"><label for="watermark-text">Watermark text</label><input id="watermark-text" type="text" maxlength="160" placeholder="Your name or copyright notice" data-lock></div>
+                <div id="watermark-logo-field" hidden><label for="watermark-logo">Choose a logo</label><input id="watermark-logo" type="file" accept=".jpg,.jpeg,.png,.webp,image/jpeg,image/png,image/webp" data-lock><p id="logo-name" class="hint">A transparent PNG works well.</p></div>
+                <div class="field-grid"><div><label for="watermark-color">Text color</label><input id="watermark-color" type="color" value="#ffffff" data-lock></div>
+                  <div><label for="watermark-size">Size (% of width)</label><input id="watermark-size" type="number" min="1" max="80" value="6" step="1" data-lock></div></div>
+                <label for="watermark-opacity">Opacity <output id="opacity-value">65%</output></label><input id="watermark-opacity" type="range" min="5" max="100" value="65" data-lock>
+                <label for="watermark-position">Position</label><select id="watermark-position" data-lock><option value="bottom-right">Bottom right</option><option value="bottom-left">Bottom left</option><option value="center">Center</option><option value="top-left">Top left</option><option value="top-right">Top right</option></select>
+              </fieldset>
+              <p class="hint">Applies to every selected image, scaled to fit.</p>
+            </div>
+          </details>
+          <details class="tool" name="image-tools">
+            <summary>Privacy</summary>
+            <div class="tool-content">
+              <label class="check"><input id="remove-metadata" type="checkbox" checked data-lock aria-describedby="metadata-choice-hint"> Remove GPS &amp; metadata</label>
+              <p id="metadata-choice-hint" class="hint">On by default. Uncheck to keep supported metadata.</p>
+              <p id="keep-metadata-note" class="hint" hidden><strong>Metadata can reveal GPS locations, dates, and names.</strong> Old embedded previews are still removed. Some fields cannot be kept when converting formats.</p>
+              <label class="check"><input id="auto-faces" type="checkbox" data-lock> Automatically cover faces</label>
+              <p class="hint">AI can miss faces. Review every image and adjust covers in the face editor.</p>
+              <label for="cover-color">Solid cover color</label><input id="cover-color" type="color" value="#111827" data-lock>
+              <label class="check"><input id="neutral-names" type="checkbox" data-lock> Use neutral filenames</label>
+              <details class="help-details">
+                <summary>What privacy tools remove</summary>
+                <p class="hint">With removal on, original EXIF, GPS, IPTC, XMP, comments, and embedded thumbnails are not copied. Your original files stay unchanged.</p>
+                <p class="hint">With removal off, supported EXIF, GPS, IPTC, XMP, and comments are copied back. Image size and orientation reflect the processed pixels. Old previews, opaque camera MakerNotes, and original color profiles are not copied. The metadata engine loads locally on first use.</p>
+                <p class="hint">WebP keeps EXIF and XMP, but not native IPTC or image comments. PNG stores IPTC in a legacy text block that some apps may not read.</p>
+                <p class="hint">AI detects faces locally. Small, obscured, or side-on faces may be missed. Add or adjust solid covers in the face editor. Existing covers stay until you remove them.</p>
+                <p class="hint">Without neutral filenames, original names are retained with a suffix. Visible addresses, text, reflections, and other identifying details are not automatically removed.</p>
+              </details>
+            </div>
+          </details>
+        </section>
+      </aside>
+
+      <section class="workbench" aria-labelledby="images-title">
+        <div class="section-heading"><div><span class="step">03 / REVIEW YOUR BATCH</span><h2 id="images-title">Input images</h2></div><span id="image-count" class="badge">0 IMAGES</span></div>
+        <div class="toolbar"><div class="selection"><button id="select-all" class="text-button" type="button" data-lock>Select all</button><button id="select-none" class="text-button" type="button" data-lock>None</button><span id="selection-count">0 selected</span></div>
+          <div><button id="remove-selected" class="text-button danger-text" type="button" data-lock>Remove selected</button><button id="clear" class="text-button" type="button" data-lock>Clear all</button></div></div>
+        <div id="empty" class="empty"><span class="empty-icon" aria-hidden="true">&#9635;</span><h3>A fresh perspective.</h3><p>Add images to inspect private details<br>and prepare your downloads.</p><span class="badge">100% ON YOUR DEVICE</span></div>
+        <ul id="image-list" class="image-grid" aria-label="Images in this batch"></ul>
+
+        <section id="results" class="results" aria-labelledby="results-title" hidden>
+          <div class="section-heading"><div><span class="step">04 / YOUR RESULTS</span><h2 id="results-title">Processed images</h2></div><span id="output-count" class="badge">0 READY</span></div>
+          <p class="hint">Click an image for a larger view. Only prepared results are shown; originals are kept above.</p>
+          <ul id="result-list" class="image-grid" aria-label="Processed images"></ul>
+        </section>
+
+        <section id="inspector" class="inspector" aria-labelledby="active-name" hidden>
+          <div class="section-heading"><div><span class="step">IMAGE INSPECTOR</span><h3 id="active-name"></h3><p id="active-info" class="hint"></p></div><button id="download-one" class="button secondary compact" type="button" data-lock>Download result</button></div>
+          <div class="tabs" role="group" aria-label="Image preview"><button id="view-original" class="button secondary compact" type="button" aria-pressed="true" data-lock>Original / face editor</button><button id="view-result" class="button secondary compact" type="button" aria-pressed="false" data-lock>Processed result</button></div>
+          <div id="preview-surface" class="preview-surface">
+            <canvas id="preview" aria-label="Selected image preview"></canvas>
+            <svg id="covers" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 1000" preserveAspectRatio="none" role="group" aria-label="Face covers. Select a cover to adjust it."></svg>
+          </div>
+          <p id="preview-hint" class="hint"></p>
+          <div class="cover-toolbar"><button id="detect-faces" class="button secondary compact" type="button" data-lock>Detect faces</button><button id="draw-cover" class="button secondary compact" type="button" aria-pressed="false" data-lock>Draw a cover</button><button id="add-cover" class="button secondary compact" type="button" data-lock>Add cover with keyboard</button><button id="undo-cover" class="button secondary compact" type="button" data-lock>Undo cover edit</button><button id="clear-covers" class="text-button danger-text" type="button" data-lock>Clear covers</button></div>
+          <p id="face-status" class="hint">Face detection can miss people. Review every image before sharing.</p>
+          <div id="cover-editor" class="cover-editor" hidden>
+            <p class="hint">Adjust the selected cover (% of image). Drag another rectangle to cover a missed face or other private detail.</p>
+            <div class="cover-fields"><div><label for="cover-x">Left %</label><input id="cover-x" type="number" min="0" max="100" step=".1" data-lock></div><div><label for="cover-y">Top %</label><input id="cover-y" type="number" min="0" max="100" step=".1" data-lock></div><div><label for="cover-width">Width %</label><input id="cover-width" type="number" min=".1" max="100" step=".1" data-lock></div><div><label for="cover-height">Height %</label><input id="cover-height" type="number" min=".1" max="100" step=".1" data-lock></div></div>
+            <div class="cover-toolbar"><button id="apply-cover" class="button secondary compact" type="button" data-lock>Apply adjustment</button><button id="delete-cover" class="text-button danger-text" type="button" data-lock>Remove this cover</button></div>
+          </div>
+          <details id="metadata-details" class="metadata-details">
+            <summary>Read GPS &amp; metadata</summary>
+            <p id="metadata-summary" class="privacy-note">Metadata is read locally from the original image.</p>
+            <div class="cover-toolbar"><button id="read-original-metadata" class="button secondary compact" type="button" data-lock>Read original</button><button id="read-result-metadata" class="button secondary compact" type="button" data-lock>Inspect result</button></div>
+            <pre id="metadata" tabindex="0" aria-label="Image metadata"></pre>
+            <p class="hint">Metadata can contain sensitive locations, dates, device details, and names. It stays in this tab. The reader may not recognize every proprietary tag. Use the Privacy tool to choose whether results remove or keep supported metadata.</p>
+          </details>
+        </section>
+      </section>
+    </div>
+    <section class="feedback" aria-label="Processing feedback"><p id="status" role="status" aria-live="polite">Loading image tools...</p><progress id="progress" max="1" value="0" aria-label="Batch progress" hidden></progress><p id="error" class="error" role="alert" hidden></p></section>
+    <div class="privacy-footer"><strong>Your pictures stay yours.</strong> No uploads, analytics, remote fonts, or external AI requests. Photos, GPS data, face covers, and results are kept only in this tab, not in browser storage. Clear all or close this tab to discard them. Downloaded files remain on your device.</div>
+    <footer>No server-side processing. <a href="https://github.com/jlavista/image-utilities" target="_blank" rel="noopener noreferrer">Source on GitHub</a> &middot; <a href="vendor/NOTICE.txt">Libraries, model credits, and licenses</a></footer>
+    <div class="actionbar" aria-label="Batch actions"><div><strong id="result-count">0 results ready</strong><span id="result-hint">Choose images to get started.</span></div><button id="process" class="button primary" type="button" data-lock disabled>Process selected images</button><button id="download-zip" class="button secondary" type="button" data-lock disabled>Download all results (.zip)</button><button id="cancel" class="button danger" type="button" hidden>Cancel</button></div>
+    <noscript><p class="error">Enable JavaScript to use these local image tools.</p></noscript>
+  </main>
+  <dialog id="result-dialog" class="image-dialog" aria-labelledby="result-title" aria-describedby="result-details">
+    <div class="section-heading"><div><span class="step">PROCESSED IMAGE</span><h2 id="result-title"></h2><p id="result-details" class="hint"></p></div><button id="close-result" class="button secondary compact" type="button" autofocus>Close</button></div>
+    <div id="result-viewport" class="result-viewport" tabindex="0" role="region" aria-label="Image preview. Scroll to explore at actual size."><img id="result-full-image" alt=""></div>
+    <p id="result-image-error" class="error" role="alert" hidden>Could not display this full-size preview. You can still download the processed image.</p>
+    <div class="viewer-actions"><button id="result-zoom" class="button secondary" type="button" data-lock>Actual size (100%)</button><button id="download-preview" class="button primary" type="button" data-lock>Download image</button></div>
+  </dialog>
+</body>
+</html>

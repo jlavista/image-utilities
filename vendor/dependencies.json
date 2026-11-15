@@ -1,0 +1,72 @@
+{
+  "description": "Pinned assets served locally. No runtime CDN requests. Metadata runtime sources are bundled without source changes.",
+  "mediapipe": {
+    "version": "1.2.3",
+    "license": "Apache-2.0",
+    "base": "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@1.2.3/",
+    "files": [
+      "vision_bundle.mjs",
+      "vision.d.ts",
+      "wasm/vision_wasm_module_internal.js",
+      "wasm/vision_wasm_module_internal.wasm"
+    ],
+    "licenseUrl": "https://raw.githubusercontent.com/google-ai-edge/mediapipe/master/LICENSE"
+  },
+  "onnx": {
+    "version": "1.20.1",
+    "license": "MIT",
+    "base": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.20.1/",
+    "files": [
+      "dist/ort.wasm.min.mjs",
+      "dist/ort-wasm-simd-threaded.mjs",
+      "dist/ort-wasm-simd-threaded.wasm"
+    ],
+    "licenseUrl": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.20.1/LICENSE",
+    "noticesUrl": "https://raw.githubusercontent.com/microsoft/onnxruntime/v1.20.1/ThirdPartyNotices.txt"
+  },
+  "exifreader": {
+    "version": "4.54.0",
+    "license": "MPL-2.0",
+    "base": "https://cdn.jsdelivr.net/npm/exifreader@4.54.0/",
+    "files": ["dist/exif-reader.js"],
+    "licenseUrl": "https://cdn.jsdelivr.net/npm/exifreader@4.54.0/LICENSE",
+    "sourceMapUrl": "https://cdn.jsdelivr.net/npm/exifreader@4.54.0/dist/exif-reader.js.map",
+    "sourceFiles": ["package.json", "babel.config.json", "webpack.config.js", "bin/build.js", "LICENSE", "README.md"]
+  },
+  "exiftool": {
+    "version": "13.63",
+    "wrapperVersion": "1.0.8",
+    "sourceRevision": "005d4c2c24387121a8d28d4878c9fa08a7c32222",
+    "source": "https://github.com/colorhythm/exiftool-wasm",
+    "runtimeRevision": "3ade6d9a77ce56c5937b8b5a59cfa47cf2f2069c",
+    "runtimeSource": "https://github.com/colorhythm/zeroperl",
+    "perlVersion": "5.42.0",
+    "scriptSha256": "4ce3c244395dd8b84753790f8a39f1ff8882376207a80b06ee1b080c8f44e0e1",
+    "wasmSha256": "00ad6f38196477865536294f24dd5e96278d68d1ee71ec9a598184d040ecd3dd",
+    "bundler": "esbuild@0.25.12",
+    "files": ["runtime.js", "zeroperl.wasm", "source.zip", "exiftool-build.json"],
+    "licenses": ["Apache-2.0", "MIT", "Artistic-1.0-Perl", "Zlib", "bzip2-1.0.6", "Apache-2.0 WITH LLVM-exception", "BSD-2-Clause", "BSD-3-Clause", "CC0-1.0"],
+    "buildInstructions": "exiftool/BUILD.txt",
+    "notices": "exiftool/THIRD-PARTY.txt"
+  },
+  "models": [
+    {
+      "file": "blaze_face_full_range.tflite",
+      "source": "https://storage.googleapis.com/mediapipe-models/face_detector/blaze_face_full_range/float16/1/blaze_face_full_range.tflite",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://raw.githubusercontent.com/google-ai-edge/mediapipe/master/LICENSE"
+    },
+    {
+      "file": "u2netp.onnx",
+      "source": "https://github.com/danielgatis/rembg/releases/download/v0.0.0/u2netp.onnx",
+      "md5": "8e83ca70e441ab06c318d82300c84806",
+      "license": "Apache-2.0",
+      "licenseUrl": "https://raw.githubusercontent.com/xuebinqin/U-2-Net/master/LICENSE"
+    }
+  ],
+  "jszip": {
+    "version": "3.10.1",
+    "license": "MIT",
+    "source": "Copied verbatim from the existing PDF Manager vendor directory."
+  }
+}

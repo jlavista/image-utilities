@@ -1,0 +1,63 @@
+Self-hosted metadata runtime - third-party notices
+
+The following components are distributed together, not under a single
+umbrella license. Source URLs are attribution and source references only.
+The browser loads runtime.js and zeroperl.wasm from this app, not these URLs.
+
+ExifTool 13.63, by Phil Harvey
+Distributed under the Artistic 1.0 (Perl) license option.
+Copyright/license notice: licenses\EXIFTOOL-README.txt
+License: licenses\PERL-ARTISTIC.txt
+Standard source: https://exiftool.org/
+https://github.com/exiftool/exiftool/tree/13.63
+The upstream archive checksum is recorded in exiftool-build.json.
+The unchanged CLI is included as source\exiftool.pl in source.zip.
+
+Perl 5.42.0, by Larry Wall and contributors
+Distributed under the Artistic 1.0 (Perl) license option.
+License and notices: licenses\PERL-ARTISTIC.txt, licenses\PERL-README.txt
+Standard source: https://www.cpan.org/src/5.0/perl-5.42.0.tar.gz
+https://github.com/Perl/perl5/tree/v5.42.0
+WebAssembly adaptations, build scripts, and patches:
+https://github.com/colorhythm/zeroperl/tree/3ade6d9a77ce56c5937b8b5a59cfa47cf2f2069c
+This is the ZeroPerl WebAssembly adaptation, not a standard Perl executable.
+
+ZeroPerl, by Andrew Sampson / United States Writing Corporation and contributors
+MIT license: licenses\ZEROPERL-MIT.txt
+https://github.com/6over3/zeroperl
+https://github.com/colorhythm/zeroperl/tree/3ade6d9a77ce56c5937b8b5a59cfa47cf2f2069c
+
+ZeroPerl TypeScript adapter from @colorhythm/exiftool-wasm 1.0.8
+Apache License 2.0: APACHE-LICENSE.txt
+Original work by Andrew Sampson / uswriting and contributions by Colorhythm.
+https://github.com/colorhythm/exiftool-wasm/tree/005d4c2c24387121a8d28d4878c9fa08a7c32222
+https://github.com/colorhythm/zeroperl-ts/tree/cff13783e6e3f4b4f0d79860f47742c87ec6e30d
+Unmodified adapter sources are in source.zip. See BUILD.txt for bundling.
+
+zlib 1.3.2, by Jean-loup Gailly and Mark Adler
+zlib license: licenses\ZLIB-NOTICE.txt
+https://github.com/madler/zlib/tree/v1.3.2
+
+bzip2 1.0.8, by Julian Seward
+bzip2 license: licenses\BZIP2-LICENSE.txt
+https://sourceware.org/pub/bzip2/bzip2-1.0.8.tar.gz
+
+WASI SDK 27 runtime libraries
+https://github.com/WebAssembly/wasi-sdk/tree/wasi-sdk-27
+WASI libc source: https://github.com/WebAssembly/wasi-libc/tree/3f7eb4c7d6ede4dde3c4bffa6ed14e8d656fe93f
+WASI libc license overview: licenses\WASI-LIBC-LICENSE.txt
+Apache 2.0, Apache 2.0 with LLVM exceptions, and MIT:
+licenses\WASI-LICENSE-APACHE.txt, licenses\WASI-LICENSE-APACHE-LLVM.txt,
+licenses\WASI-LICENSE-MIT.txt
+musl notices: licenses\MUSL-COPYRIGHT.txt
+Cloudlibc BSD-2-Clause: licenses\CLOUDLIBC-LICENSE.txt
+musl-fts BSD-3-Clause: licenses\MUSL-FTS-COPYING.txt
+Allocator source notices: licenses\DLMALLOC-SOURCE.txt (public domain/CC0)
+and licenses\EMMALLOC-SOURCE.txt (MIT).
+Original Emscripten license for emmalloc: licenses\EMSCRIPTEN-LICENSE.txt
+https://github.com/emscripten-core/emscripten/tree/4.0.15
+LLVM/compiler-rt runtime license: licenses\LLVM-LICENSE.txt
+LLVM source: https://github.com/llvm/llvm-project/tree/87f0227cb60147a26a1eeb4fb06e3b505e9c7261
+
+esbuild 0.25.12 is a build-time tool only, not a runtime dependency.
+https://github.com/evanw/esbuild/tree/v0.25.12

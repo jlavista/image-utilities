@@ -1,0 +1,24 @@
+Metadata runtime bundle
+
+The app uses ExifTool's metadata engine through ZeroPerl's public in-memory
+filesystem API. Runtime files are already built; hosting this app needs no
+package manager, build step, or external service.
+
+Provenance: dependencies.json and exiftool-build.json.
+The CLI and WASM are an unchanged, checksum-verified pair from
+@colorhythm/exiftool-wasm 1.0.8 (ExifTool 13.63, Perl 5.42.0).
+Only the unmodified ZeroPerl adapter and CLI are bundled, not the package's
+single-file metadata wrapper. The app supplies its own two-file copy operation.
+
+To reproduce runtime.js, in this directory:
+1. Expand source.zip here; it creates source\.
+2. Copy zeroperl.wasm to source\zeroperl\zeroperl.wasm.
+3. With esbuild 0.25.12 available, run:
+
+esbuild runtime-entry.js --bundle --format=esm --platform=browser --target=es2022 --external:node:* --loader:.wasm=file --loader:.pl=text --asset-names=[name] --outfile=runtime.js --legal-comments=inline --minify
+
+source.zip contains the adapter's original TypeScript sources. The unchanged
+upstream src/exiftool is named source\exiftool.pl for the bundler's text loader.
+Rebuilding the WASM itself uses the upstream zeroperl build at the revision
+recorded in dependencies.json, with the ExifTool version and source checksum
+from exiftool-build.json. See THIRD-PARTY.txt for source and license locations.
